@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPostsbyid } from './postsslice.js';
+import { clearCurrentPost, fetchPostsbyid } from './postsslice.js';
 
 const GetPost = () => {
     const dispatch = useDispatch();
@@ -11,8 +11,15 @@ const GetPost = () => {
     if (postId) dispatch(fetchPostsbyid(postId));
     };
 
+    useEffect(() => {
+    return () => {
+    dispatch(clearCurrentPost()); 
+    };
+    }, [dispatch]);
+
+
     return(
-        <div className="form">
+        <div className="function">
             <h2>Get post</h2>
             <input
                type="number"
@@ -25,7 +32,7 @@ const GetPost = () => {
             {status === 'loading' && <p>Loading...</p>}
             {status === 'failed' && <p>Error: {error}</p>}
             {status === 'succeeded' && currentPost &&(
-           <div>
+            <div>
              <h3>{currentPost.title}</h3>
               <p>{currentPost.body}</p>
             </div>

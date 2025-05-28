@@ -21,7 +21,7 @@ export function Addpost(){
   };
 
   return (
-    <div className="form">
+    <div className="function">
       <h2>Add Post</h2>
       <form onSubmit={handleSubmit}>
         <input
